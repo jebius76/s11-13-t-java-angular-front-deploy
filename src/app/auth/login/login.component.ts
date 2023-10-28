@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  loading: boolean = false;
 
 
   ngOnInit(): void {
@@ -28,16 +29,18 @@ export class LoginComponent implements OnInit {
       //Perfil del cliente al cual accedes directamente al home para seleccionar
       //Cualquier casa y empezar a usar la app
       {
-        nameUser: ['juan', [Validators.required]],
-        password: ['123456', [Validators.required]]
+        nameUser: ['esteban', [Validators.required]],
+        password: ['Esteban_2023', [Validators.required]]
       }
     )
 
   }
   login() {
 
+    if (!this.loading){
+    this.loading = true;
+    console.log("Logeando")
     this.authService.login(this.loginForm.value).subscribe((resp: AuthResponse) => {
-
       if (resp) {
         const authority = resp.authorities[0].authority;
 
@@ -51,7 +54,7 @@ export class LoginComponent implements OnInit {
         }
       }
     })
-
+  }
   }
 
 }
